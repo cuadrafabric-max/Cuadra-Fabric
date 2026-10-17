@@ -1,0 +1,15 @@
+# Minimal Supabase CLI config for the Cuadra Fabric audit backend.
+# Production project ref: see docs/AUDIT_BACKEND.md (do not store keys here).
+project_id = "cuadra-fabric"
+
+# Stripe signs its requests; the function verifies Stripe-Signature itself.
+[functions.stripe-webhook]
+verify_jwt = false
+
+# Public intake for anonymous buyers (CORS allowlist + validation in code).
+[functions.audit-intake]
+verify_jwt = false
+
+# Verifies the user token in code and requires app_metadata.role = "admin".
+[functions.audit-admin]
+verify_jwt = false
