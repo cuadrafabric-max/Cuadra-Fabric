@@ -58,6 +58,7 @@ State machine (enforced by trigger on every UPDATE, including direct SQL):
 | `audit_deliverables` | versioned report links | service_role; owner |
 | `stripe_events` | every Stripe event, PK = event id (idempotency) | service_role only |
 | `audit_events` | append-only log of every transition and flag | service_role only |
+| `audit_offers` | Stripe Payment Links that sell the audit, price, turnaround | service_role only |
 
 RPCs (EXECUTE granted to `service_role` only; all `SECURITY INVOKER`):
 `audit_submit_intake`, `audit_attach_checkout_session`, `audit_handle_stripe_event`, `audit_transition`.
@@ -100,7 +101,7 @@ Grant admin (SQL editor): `update auth.users set raw_app_meta_data = raw_app_met
 
 | Secret (Edge Functions → Secrets) | Value | Needed by |
 |---|---|---|
-| `STRIPE_WEBHOOK_SECRET` **(required, not set yet)** | signing secret of endpoint `we_1URgxDDLGXdSpZNAuNwoSb8H` (Stripe → Webhooks → endpoint → Reveal) | stripe-webhook |
+| `STRIPE_WEBHOOK_SECRET` *(optional override)* | not needed: the signing secret of `we_1URgxDDLGXdSpZNAuNwoSb8H` is stored in **Supabase Vault** as `stripe_webhook_secret` (read via `audit_stripe_webhook_secret()`, service_role only). Setting the env var overrides Vault. | stripe-webhook |
 | `STRIPE_REQUIRE_LIVEMODE` *(optional)* | `true` to ignore test-mode events | stripe-webhook |
 | `ALLOWED_ORIGINS` *(optional)* | comma list; default Base44 app + cuadrafabric.com | intake, admin |
 | `AUDIT_CHECKOUT_MODE` *(optional)* | `checkout_session` to use API Checkout Sessions instead of the Payment Link | audit-intake |
@@ -112,6 +113,8 @@ The webhook endpoint already exists in Stripe with the six events: `checkout.ses
 
 ## Tests
 
+* 2026-10-17 live end-to-end: real HTTP to the deployed `stripe-webhook`, signed with the Vault secret — valid purchase → `processed` (paid, due +48h, 1 payment); same event again → `duplicate`; forged signature → 400; tampered body → 400; subscription checkout → `ignored`.
+
 * `node --experimental-strip-types --test supabase/functions/tests/stripe-signature.test.ts` — 9 signature tests.
 * `supabase/tests/audit_rls_access.sql` — 17 role/RLS probes (read-only).
 
@@ -121,3 +124,9 @@ The webhook endpoint already exists in Stripe with the six events: `checkout.ses
 * No customer emails: sending customer communications needs an email provider and explicit approval.
 * No customer login UI: RLS supports it (`audit_customers.auth_user_id`), linking is manual for now.
 * No per-IP rate limiting on intake beyond CORS + honeypot.
+
+## Rotating the Stripe webhook secret
+
+1. Stripe → Webhooks → endpoint `we_1URgxDDLGXdSpZNAuNwoSb8H` → Roll secret.
+2. SQL editor: `select vault.update_secret((select id from vault.secrets where name = 'stripe_webhook_secret'), '<new whsec_...>');`
+3. Warm function instances cache the old value; redeploy `stripe-webhook` (or wait for instances to recycle).

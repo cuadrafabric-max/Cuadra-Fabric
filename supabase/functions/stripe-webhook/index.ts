@@ -7,7 +7,7 @@
 //   400 bad / missing signature, malformed JSON        (do not retry — not ours)
 //   413 payload too large
 //   500 processing failed (event stored as failed; Stripe retry re-runs it)
-//   503 STRIPE_WEBHOOK_SECRET not configured
+//   503 no signing secret (env STRIPE_WEBHOOK_SECRET or Vault 'stripe_webhook_secret')
 // verify_jwt = false: Stripe sends no Supabase credentials; the signature is the auth.
 
 import { verifyStripeSignature } from "../_shared/stripe-signature.ts";
@@ -16,12 +16,29 @@ import { errorJson, json, readTextCapped } from "../_shared/http.ts";
 
 const MAX_BODY_BYTES = 512 * 1024;
 
+// Signing secret: STRIPE_WEBHOOK_SECRET env var if set, otherwise Supabase Vault
+// ('stripe_webhook_secret' via public.audit_stripe_webhook_secret(), service_role only).
+// Cached per warm instance; a failed lookup is retried on the next request.
+let cachedSecret: string | null = null;
+async function webhookSecret(): Promise<string | null> {
+  const fromEnv = Deno.env.get("STRIPE_WEBHOOK_SECRET");
+  if (fromEnv) return fromEnv;
+  if (cachedSecret) return cachedSecret;
+  const { data, error } = await adminClient().rpc("audit_stripe_webhook_secret");
+  if (error) {
+    console.error(`stripe-webhook: vault lookup failed ${error.code}`);
+    return null;
+  }
+  cachedSecret = typeof data === "string" && data.startsWith("whsec_") ? data : null;
+  return cachedSecret;
+}
+
 Deno.serve(async (req) => {
   if (req.method !== "POST") return errorJson("method_not_allowed", "POST only", 405, { Allow: "POST" });
 
-  const secret = Deno.env.get("STRIPE_WEBHOOK_SECRET");
+  const secret = await webhookSecret();
   if (!secret) {
-    console.error("stripe-webhook: STRIPE_WEBHOOK_SECRET is not set");
+    console.error("stripe-webhook: no signing secret (env STRIPE_WEBHOOK_SECRET or vault stripe_webhook_secret)");
     return errorJson("not_configured", "Webhook secret not configured", 503);
   }
 
