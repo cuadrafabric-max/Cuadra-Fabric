@@ -7,12 +7,36 @@ The `API` file in this repo references a different project (`byrezpasytccfzvexmx
 
 ```
 Base44 intake form ──POST──▶ audit-intake ──▶ audit_submit_intake()  → request: awaiting_payment
-                                   └──▶ Stripe Checkout Session (client_reference_id = request id)
+                                   └──▶ returns primary Payment Link
+                                        https://buy.stripe.com/14A14n07Q8mr9Owaf4bAs05
+                                        ?client_reference_id=<request id>&prefilled_email=<email>
 Buyer pays on Stripe ──webhook──▶ stripe-webhook (verifies Stripe-Signature)
-                                   └──▶ audit_handle_stripe_event()  → paid, due_at = +5 business days (PT)
+                                   └──▶ audit_handle_stripe_event()  → paid, due_at = paid_at + 48 hours
 Staff ──POST (admin JWT)──▶ audit-admin ──▶ audit_transition()  → in_progress → delivered (report URL)
 Stripe refund ──webhook──▶ charge.refunded → refunded
 ```
+
+Decisions (2026-10-17): primary offer = **48-Hour E-Commerce Revenue & Automation Audit**, $297;
+deadline = **48 hours after payment** (the Base44 page still says "5 business days" — update its copy).
+
+## Audit offers (migration `20261017231154_audit_offers_payment_links`)
+
+`audit_offers` lists the Stripe Payment Links that sell the audit. Only checkouts from these links (or
+carrying one of our request ids) create or update audit records; subscription checkouts (Foundation/Growth/
+Scale) and other products on the same Stripe account are recorded in `stripe_events` as `ignored`.
+
+| Payment link | Name | Primary |
+|---|---|---|
+| `plink_1URgevDLGXdSpZNAGJcC2tvd` — buy.stripe.com/14A14n07Q8mr9Owaf4bAs05 | 48-Hour E-Commerce Revenue & Automation Audit | ✓ |
+| `plink_1URgdvDLGXdSpZNAfZHiKvLF` — buy.stripe.com/7sY5kD2fYdGLf8Q3QGbAs04 | $297 Storefront Audit | |
+| `plink_1UKcrXDLGXdSpZNAPHjtXfQK` — buy.stripe.com/fZu9ATf2KgSX4uc5YObAs01 | $297 Storefront Audit (legacy) | |
+| `plink_1UJtokDLGXdSpZNAzlc6vAbp` — buy.stripe.com/4gM8wPdYG46b7Go0EubAs00 | $297 Storefront Audit (legacy) | |
+
+Automatic tax is enabled on the links, so the handler compares the **pre-tax subtotal** to the price and
+stores total, subtotal and tax separately on `audit_payments`.
+To change the primary link or turnaround: `update audit_offers set is_primary = …, turnaround = interval '…'`.
+
+Stripe webhook endpoint (live, created 2026-10-17): `we_1URgxDDLGXdSpZNAuNwoSb8H` → `…/functions/v1/stripe-webhook`.
 
 State machine (enforced by trigger on every UPDATE, including direct SQL):
 
@@ -76,15 +100,14 @@ Grant admin (SQL editor): `update auth.users set raw_app_meta_data = raw_app_met
 
 | Secret (Edge Functions → Secrets) | Value | Needed by |
 |---|---|---|
-| `STRIPE_SECRET_KEY` | `sk_live_...` (or `sk_test_...` first) | audit-intake |
-| `STRIPE_WEBHOOK_SECRET` | `whsec_...` from the Stripe webhook endpoint | stripe-webhook |
-| `STRIPE_AUDIT_PRICE_ID` *(optional)* | `price_...` for the $297 product; otherwise inline $297 USD | audit-intake |
-| `AUDIT_SUCCESS_URL` / `AUDIT_CANCEL_URL` *(optional)* | Base44 pages; default `https://cuadra-audit-flow.base44.app/?checkout=...` | audit-intake |
+| `STRIPE_WEBHOOK_SECRET` **(required, not set yet)** | signing secret of endpoint `we_1URgxDDLGXdSpZNAuNwoSb8H` (Stripe → Webhooks → endpoint → Reveal) | stripe-webhook |
+| `STRIPE_REQUIRE_LIVEMODE` *(optional)* | `true` to ignore test-mode events | stripe-webhook |
 | `ALLOWED_ORIGINS` *(optional)* | comma list; default Base44 app + cuadrafabric.com | intake, admin |
-| `STRIPE_REQUIRE_LIVEMODE` *(optional)* | `true` once live, to ignore test events | stripe-webhook |
+| `AUDIT_CHECKOUT_MODE` *(optional)* | `checkout_session` to use API Checkout Sessions instead of the Payment Link | audit-intake |
+| `STRIPE_SECRET_KEY`, `STRIPE_AUDIT_PRICE_ID`, `AUDIT_SUCCESS_URL`, `AUDIT_CANCEL_URL` | only for `checkout_session` mode | audit-intake |
 
-Stripe Dashboard → Developers → Webhooks → add endpoint `…/functions/v1/stripe-webhook` with events:
-`checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`,
+The webhook endpoint already exists in Stripe with the six events: `checkout.session.completed`,
+`checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`,
 `checkout.session.expired`, `charge.refunded`, `charge.dispute.created`.
 
 ## Tests

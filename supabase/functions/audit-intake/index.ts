@@ -1,7 +1,8 @@
 // POST /functions/v1/audit-intake
 // Public intake endpoint for the $297 Ecommerce & Business Audit.
-// Validates input, stores customer + request (idempotent), then creates a Stripe
-// Checkout Session tied to the request and returns its URL.
+// Validates input, stores customer + request (idempotent), then returns the primary
+// Stripe Payment Link with client_reference_id=<request id> (or, in checkout_session
+// mode, an API-created Checkout Session tied to the request).
 //
 // Request JSON:
 //   { email*, store_url*, full_name, company, phone, platform, monthly_revenue_band,
@@ -18,7 +19,7 @@ import { corsHeaders, errorJson, json, readTextCapped } from "../_shared/http.ts
 const MAX_BODY_BYTES = 32 * 1024;
 const PLATFORMS = new Set(["shopify", "woocommerce", "bigcommerce", "wix", "squarespace", "other"]);
 const PRICE_CENTS = 29700;
-const PRODUCT_NAME = "Cuadra Fabric Ecommerce & Business Audit";
+const PRODUCT_NAME = "Cuadra Fabric 48-Hour E-Commerce Revenue & Automation Audit"; // checkout_session mode only
 
 type Intake = {
   email: string;
@@ -186,6 +187,22 @@ Deno.serve(async (req) => {
   };
 
   if (result.status !== "awaiting_payment") return json(result, 200, cors); // already paid / closed
+
+  // Default: the primary Stripe Payment Link (public/audit_offers). client_reference_id ties the
+  // payment to this request; prefilled_email saves the buyer retyping it. No Stripe key needed.
+  // Set AUDIT_CHECKOUT_MODE=checkout_session (+ STRIPE_SECRET_KEY) to create API Checkout Sessions instead.
+  if (Deno.env.get("AUDIT_CHECKOUT_MODE") !== "checkout_session") {
+    const { data: offer, error: offerErr } = await db.from("audit_offers")
+      .select("payment_link_url").eq("is_primary", true).eq("active", true).maybeSingle();
+    if (offerErr || !offer?.payment_link_url) {
+      console.error(`audit-intake: no active primary audit offer (${offerErr?.code ?? "none"})`);
+      return json({ ...result, error: { code: "payment_unavailable", message: "Checkout is not configured yet" } }, 503, cors);
+    }
+    const link = new URL(offer.payment_link_url);
+    link.searchParams.set("client_reference_id", result.request_id);
+    link.searchParams.set("prefilled_email", v.value.email);
+    return json({ ...result, checkout_url: link.toString() }, 200, cors);
+  }
 
   if (!Deno.env.get("STRIPE_SECRET_KEY")) {
     console.error("audit-intake: STRIPE_SECRET_KEY is not set; request stored without checkout");
