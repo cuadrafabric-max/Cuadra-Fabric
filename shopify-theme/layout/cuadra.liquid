@@ -1,0 +1,54 @@
+{%- comment -%}
+  Cuadra Fabric SaaS site shell. Used by templates that set "layout": "cuadra"
+  (index, page.platform, page.store-auditor, page.pricing, page.how-it-works, page.demo, 404).
+  Store templates (product, collection, cart, …) keep layout/theme.liquid.
+{%- endcomment -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+{%- liquid
+  assign default_desc = 'Cuadra Fabric helps e-commerce operators build, audit, understand, and optimize their stores with connected data, automated insights, and actionable recommendations.'
+  case template.name
+    when 'index'
+      assign seo_title = 'Cuadra Fabric | E-Commerce Intelligence & Store Auditing'
+      assign seo_desc = default_desc
+    when 'page'
+      assign seo_title = page.title | append: ' | Cuadra Fabric'
+      assign seo_desc = page_description | default: default_desc
+    when '404'
+      assign seo_title = 'Page not found | Cuadra Fabric'
+      assign seo_desc = default_desc
+    else
+      assign seo_title = page_title | append: ' | Cuadra Fabric'
+      assign seo_desc = page_description | default: default_desc
+  endcase
+-%}
+<title>{{ seo_title | escape }}</title>
+<meta name="description" content="{{ seo_desc | strip_html | strip | escape }}">
+<link rel="canonical" href="{{ canonical_url }}">
+<link rel="icon" type="image/png" href="{{ 'cuadra-logo.png' | asset_url }}">
+<meta property="og:site_name" content="Cuadra Fabric">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ seo_title | escape }}">
+<meta property="og:description" content="{{ seo_desc | strip_html | strip | escape }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Michroma&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+{{ 'cuadra.css' | asset_url | stylesheet_tag }}
+{{ 'cuadra-site.css' | asset_url | stylesheet_tag }}
+{{ content_for_header }}
+</head>
+<body class="cf tpl-{{ template.name }}">
+<a class="skip" href="#main">Skip to content</a>
+{% section 'cuadra-site-nav' %}
+<main id="main">
+{{ content_for_layout }}
+</main>
+{% section 'cuadra-site-footer' %}
+<script src="{{ 'cuadra.js' | asset_url }}" defer></script>
+</body>
+</html>

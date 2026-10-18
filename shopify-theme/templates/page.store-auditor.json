@@ -1,0 +1,108 @@
+{
+  "layout": "cuadra",
+  "sections": {
+    "hero": {
+      "type": "cuadra-page-hero",
+      "settings": {
+        "status": "live",
+        "eyebrow": "Store Auditor",
+        "heading": "Find out what's actually wrong with your store.",
+        "text": "A $297 review of your store across 13 areas. Every finding is rated, explained, and paired with a next step, and your report arrives within 48 hours of payment.",
+        "btn1_label": "Start my audit",
+        "btn1_link": "https://cuadra-audit-flow.base44.app",
+        "btn2_label": "See what's in the report",
+        "btn2_link": "/pages/store-auditor#report"
+      }
+    },
+    "report": {
+      "type": "cuadra-report",
+      "settings": {
+        "alt": true
+      }
+    },
+    "steps": {
+      "type": "cuadra-audit-steps",
+      "settings": {
+        "heading": "How the audit works"
+      }
+    },
+    "auditor": {
+      "type": "cuadra-auditor",
+      "settings": {
+        "heading": "Start your audit.",
+        "text": "Order your $297 audit below, or send us your store URL first if you have questions."
+      }
+    },
+    "faq": {
+      "type": "cuadra-faq",
+      "settings": {
+        "heading": "Before you order",
+        "alt": true
+      },
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "What exactly do I get?",
+            "answer": "<p>A written report: your Cuadra Fabric Health Score, the 3 things to fix today, a rating for each of the 13 areas, and for every issue what's wrong, why it matters, and what to do next. It ends with a plan for this week and this month.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "How fast will I get it?",
+            "answer": "<p>Within 48 hours of payment.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Will you change anything in my store?",
+            "answer": "<p>No. The audit is read-only. Every fix is written up for you to approve and make yourself.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Which platforms do you audit?",
+            "answer": "<p>The audit is built for Shopify stores. On another platform? <a href=\"/pages/demo\">Contact us</a> before ordering and we'll confirm what we can review.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "What if you can't measure something?",
+            "answer": "<p>We say so. Areas we can't check are marked \"Not measured\", along with what it would take to check them. We never guess.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "How is my information handled?",
+            "answer": "<p>Payments are processed by Stripe, so we never see your full card details. We use the store information you share to prepare your audit.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ]
+    },
+    "final": {
+      "type": "cuadra-final",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "report",
+    "steps",
+    "auditor",
+    "faq",
+    "final"
+  ]
+}

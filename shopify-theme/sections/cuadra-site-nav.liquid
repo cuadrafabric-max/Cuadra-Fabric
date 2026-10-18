@@ -1,0 +1,37 @@
+{%- comment -%}
+  Section contract.
+  Site-wide navigation for the Cuadra Fabric SaaS layout (layout/cuadra.liquid renders it statically).
+{%- endcomment -%}
+{%- assign nav_items = 'Home|/,Platform|/pages/platform,Store Auditor|/pages/store-auditor,Pricing|/pages/pricing,How it works|/pages/how-it-works,Contact / Demo|/pages/demo' | split: ',' -%}
+<nav aria-label="Primary">
+  <div class="wrap nav-in">
+    <a class="brand" href="/" aria-label="Cuadra Fabric home">
+      <img src="{{ 'cuadra-logo.png' | asset_url }}" alt="" width="34" height="36">
+      <div><span class="wordmark">CUADRA</span><small>FABRIC</small></div>
+    </a>
+    <div class="links">
+      {%- for item in nav_items -%}
+        {%- assign parts = item | split: '|' -%}
+        <a href="{{ parts[1] }}"{% if request.path == parts[1] %} aria-current="page"{% endif %}>{{ parts[0] }}</a>
+      {%- endfor -%}
+    </div>
+    <div class="nav-r">
+      <a class="btn btn-p" href="/pages/store-auditor">Audit my store</a>
+      <details class="m-menu">
+        <summary>Menu</summary>
+        <div class="m-links">
+          {%- for item in nav_items -%}
+            {%- assign parts = item | split: '|' -%}
+            <a href="{{ parts[1] }}"{% if request.path == parts[1] %} aria-current="page"{% endif %}>{{ parts[0] }}</a>
+          {%- endfor -%}
+        </div>
+      </details>
+    </div>
+  </div>
+</nav>
+
+{% schema %}
+{
+  "name": "Cuadra · Site nav"
+}
+{% endschema %}

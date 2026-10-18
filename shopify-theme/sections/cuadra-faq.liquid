@@ -1,0 +1,36 @@
+{%- comment -%}
+  Section contract.
+  Question-and-answer list. Each question is a merchant-editable block; answers are rich text.
+{%- endcomment -%}
+<section class="faq-s{% if section.settings.alt %} alt{% endif %}">
+  <div class="wrap narrow">
+    <div class="sec-h"><h2>{{ section.settings.heading | escape }}</h2></div>
+    {%- for block in section.blocks -%}
+      <details class="faq" {{ block.shopify_attributes }}{% if forloop.first %} open{% endif %}>
+        <summary>{{ block.settings.question | escape }}</summary>
+        <div class="faq-a">{{ block.settings.answer }}</div>
+      </details>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cuadra · FAQ",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Questions" },
+    { "type": "checkbox", "id": "alt", "label": "Alternate background", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Answer</p>" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Cuadra · FAQ" } ]
+}
+{% endschema %}

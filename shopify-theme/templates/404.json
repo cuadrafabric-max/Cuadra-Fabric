@@ -1,0 +1,21 @@
+{
+  "layout": "cuadra",
+  "sections": {
+    "hero": {
+      "type": "cuadra-page-hero",
+      "settings": {
+        "status": "none",
+        "eyebrow": "404",
+        "heading": "This page doesn't exist.",
+        "text": "The link may be wrong, or the page may have moved.",
+        "btn1_label": "Go to the homepage",
+        "btn1_link": "/",
+        "btn2_label": "Audit my store",
+        "btn2_link": "/pages/store-auditor"
+      }
+    }
+  },
+  "order": [
+    "hero"
+  ]
+}

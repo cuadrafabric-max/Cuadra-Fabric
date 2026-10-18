@@ -1,0 +1,22 @@
+{
+  "layout": "cuadra",
+  "sections": {
+    "hero": {
+      "type": "cuadra-page-hero",
+      "settings": {
+        "status": "none",
+        "eyebrow": "Contact / Demo",
+        "heading": "Talk to us.",
+        "text": "Questions about the audit, a walkthrough, or early access to the platform. Send us a note and we'll reply by email."
+      }
+    },
+    "contact": {
+      "type": "cuadra-contact",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "contact"
+  ]
+}

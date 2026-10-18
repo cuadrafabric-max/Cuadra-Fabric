@@ -1,0 +1,79 @@
+{
+  "layout": "cuadra",
+  "sections": {
+    "hero": {
+      "type": "cuadra-page-hero",
+      "settings": {
+        "status": "none",
+        "eyebrow": "How it works",
+        "heading": "From store URL to a ranked plan in 48 hours.",
+        "text": "Here's exactly what happens when you order a Store Audit, and how the platform will build on it.",
+        "btn1_label": "Start my audit",
+        "btn1_link": "/pages/store-auditor"
+      }
+    },
+    "steps": {
+      "type": "cuadra-audit-steps",
+      "settings": {
+        "heading": "The Store Audit, step by step"
+      }
+    },
+    "report": {
+      "type": "cuadra-report",
+      "settings": {
+        "alt": true
+      }
+    },
+    "how": {
+      "type": "cuadra-how",
+      "settings": {}
+    },
+    "faq": {
+      "type": "cuadra-faq",
+      "settings": {
+        "heading": "Process questions",
+        "alt": false
+      },
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "When does the 48-hour clock start?",
+            "answer": "<p>When your payment is confirmed.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "What do you need from me?",
+            "answer": "<p>Your store URL, your platform, and what you want to improve. We'll ask if anything else is needed.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "What happens after I get my report?",
+            "answer": "<p>Make the fixes yourself using the plan, or <a href=\"/pages/demo\">talk to us</a> about early access to the platform.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ]
+    },
+    "final": {
+      "type": "cuadra-final",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "steps",
+    "report",
+    "how",
+    "faq",
+    "final"
+  ]
+}

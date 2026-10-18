@@ -1,0 +1,56 @@
+{%- comment -%}
+  Section contract.
+  Contact / demo / early-access form. Uses Shopify's native contact form, which emails the
+  store's sender address; no third-party service involved.
+{%- endcomment -%}
+<section id="contact">
+  <div class="wrap aud-grid">
+    <div>
+      <div class="sec-h" style="margin-bottom:0">
+        <h2>Send us a note.</h2>
+        <p>Tell us about your store and what you're looking for. We reply by email.</p>
+      </div>
+      <div class="contact-points">
+        <div class="card" style="padding:20px">
+          <span class="st st-live">Available today</span>
+          <p style="margin-top:12px">Ready for the audit? <a href="/pages/store-auditor">Start your $297 Store Audit</a>.</p>
+        </div>
+        <div class="card" style="padding:20px">
+          <span class="st st-soon">Early access</span>
+          <p style="margin-top:12px">Interested in the platform? Choose "Platform early access" in the form.</p>
+        </div>
+        <p>Or email <a href="mailto:cuadrafabric@gmail.com">cuadrafabric@gmail.com</a>.</p>
+      </div>
+    </div>
+    {%- form 'contact', id: 'contact-form', class: 'card form' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="form-msg" role="status">Thanks. We received your message and will reply by email.</p>
+      {%- else -%}
+        {%- if form.errors -%}<p class="form-err" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+        <label for="cf-name">Name</label>
+        <input id="cf-name" name="contact[name]" type="text" autocomplete="name">
+        <label for="cf-email">Work email</label>
+        <input id="cf-email" name="contact[email]" type="email" autocomplete="email" required>
+        <label for="cf-store">Store URL</label>
+        <input id="cf-store" name="contact[Store URL]" type="url" placeholder="https://yourstore.com">
+        <label for="cf-topic">I'm interested in</label>
+        <select id="cf-topic" name="contact[Interested in]">
+          <option>Store Audit question</option>
+          <option>Demo / walkthrough</option>
+          <option>Platform early access</option>
+          <option>Something else</option>
+        </select>
+        <label for="cf-msg">Message</label>
+        <textarea id="cf-msg" name="contact[body]" rows="5"></textarea>
+        <button class="btn btn-p btn-lg" type="submit">Send message</button>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cuadra · Contact",
+  "presets": [ { "name": "Cuadra · Contact" } ]
+}
+{% endschema %}

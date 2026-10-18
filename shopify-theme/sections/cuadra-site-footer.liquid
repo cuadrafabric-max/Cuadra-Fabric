@@ -1,0 +1,43 @@
+{%- comment -%}
+  Section contract.
+  Site-wide footer for the Cuadra Fabric SaaS layout. Legal links list only the store
+  policies that actually exist (shop.policies), so there are never dead legal links.
+{%- endcomment -%}
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <a class="brand" href="/"><img src="{{ 'cuadra-logo.png' | asset_url }}" alt="" width="26" height="28" style="width:26px;height:28px"><span class="wordmark" style="font-size:11px">CUADRA FABRIC</span></a>
+      <p class="foot-desc">E-commerce intelligence and store auditing. Know what your business actually makes.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="/pages/platform">Platform</a>
+      <a href="/pages/store-auditor">Store Auditor</a>
+      <a href="/pages/pricing">Pricing</a>
+      <a href="/pages/how-it-works">How it works</a>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <a href="/pages/demo">Contact / Demo</a>
+      <a href="mailto:cuadrafabric@gmail.com">cuadrafabric@gmail.com</a>
+    </div>
+    {%- if shop.policies.size > 0 -%}
+      <div>
+        <h4>Legal</h4>
+        {%- for policy in shop.policies -%}
+          <a href="{{ policy.url }}">{{ policy.title | escape }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+  <div class="wrap foot-bottom">
+    <span>&copy; {{ 'now' | date: '%Y' }} Cuadra Fabric. All rights reserved.</span>
+    <span>Dashboard previews use sample data.</span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Cuadra · Site footer"
+}
+{% endschema %}

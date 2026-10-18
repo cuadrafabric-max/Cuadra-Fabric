@@ -1,0 +1,42 @@
+{
+  "layout": "cuadra",
+  "sections": {
+    "hero": {
+      "type": "cuadra-hero",
+      "settings": {}
+    },
+    "how": {
+      "type": "cuadra-how",
+      "settings": {}
+    },
+    "auditor": {
+      "type": "cuadra-auditor",
+      "settings": {}
+    },
+    "platform": {
+      "type": "cuadra-platform",
+      "settings": {}
+    },
+    "connectors": {
+      "type": "cuadra-connectors",
+      "settings": {}
+    },
+    "pricing": {
+      "type": "cuadra-pricing",
+      "settings": {}
+    },
+    "final": {
+      "type": "cuadra-final",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "how",
+    "auditor",
+    "platform",
+    "connectors",
+    "pricing",
+    "final"
+  ]
+}

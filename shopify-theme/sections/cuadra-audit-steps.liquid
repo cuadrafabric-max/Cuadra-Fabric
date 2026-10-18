@@ -1,0 +1,31 @@
+{%- comment -%}
+  Section contract.
+  The Store Audit funnel, step by step: intake → checkout → audit → results → plan.
+{%- endcomment -%}
+<section id="steps" class="{% if section.settings.alt %}alt{% endif %}">
+  <div class="wrap">
+    <div class="sec-h">
+      <h2>{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+    </div>
+    <ol class="steps5">
+      <li class="card s5"><div class="n">1</div><h3>Tell us about your store</h3><p>Your store URL, platform, and what you want to improve. It takes a few minutes.</p></li>
+      <li class="card s5"><div class="n">2</div><h3>Check out securely</h3><p>Pay $297 once through Stripe. Your 48-hour clock starts when payment is confirmed.</p></li>
+      <li class="card s5"><div class="n">3</div><h3>We audit</h3><p>We review all 13 areas using real data from your store. Read-only: nothing in your store changes.</p></li>
+      <li class="card s5"><div class="n">4</div><h3>Get your results</h3><p>Your Health Score, with every area rated Critical, Needs attention, or Healthy.</p></li>
+      <li class="card s5"><div class="n">5</div><h3>Act on the plan</h3><p>3 things to fix today, then a ranked plan for this week and this month.</p></li>
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cuadra · Audit steps",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "From store URL to a ranked plan in 48 hours" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "checkbox", "id": "alt", "label": "Alternate background", "default": false }
+  ],
+  "presets": [ { "name": "Cuadra · Audit steps" } ]
+}
+{% endschema %}

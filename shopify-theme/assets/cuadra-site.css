@@ -1,0 +1,75 @@
+/* Cuadra Fabric SaaS site — styles for layout/cuadra.liquid pages (loaded after cuadra.css). */
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:16px;top:12px;z-index:60;background:var(--blue);color:#fff;padding:10px 14px;border-radius:8px}
+.links a[aria-current=page],.m-links a[aria-current=page]{color:var(--text)}
+.links a[aria-current=page]{box-shadow:inset 0 -2px 0 var(--blue);padding-bottom:4px}
+main{display:block}
+/* font fallbacks for rules in cuadra.css that name a web font with no fallback */
+.btn,.toggle button,.badge{font-family:Manrope,system-ui,sans-serif}
+.chip,.dial b small,.step .n,.tag,.kpi i,.cn small{font-family:'JetBrains Mono',ui-monospace,monospace}
+/* tighten the gap between a page hero and the section right after it */
+.shopify-section:has(> .phero) + .shopify-section > section{padding-top:56px}
+
+/* page hero */
+.phero{padding:88px 0 36px}
+.phero .eyebrow{font:500 12px 'JetBrains Mono',monospace;letter-spacing:.12em;color:var(--sky);text-transform:uppercase;margin:18px 0 14px}
+.phero .st+.eyebrow{margin-top:18px}
+.phero h1{max-width:860px;font-size:clamp(36px,4.6vw,58px)}
+.phero .lede{max-width:660px}
+.phero .lede:last-child{margin-bottom:0}
+
+/* audit steps */
+.steps5{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.s5{padding:22px}
+.s5 .n{width:36px;height:36px;border-radius:50%;border:1px solid var(--blue);display:grid;place-content:center;font:500 13px 'JetBrains Mono',monospace;color:var(--sky)}
+.s5 h3{font-size:17px;margin:16px 0 8px;letter-spacing:-.01em}
+.s5 p{font-size:14px;color:var(--mute)}
+
+/* report */
+.rep-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}
+.rep{padding:28px}
+.rep h3{font-size:19px;margin-bottom:18px}
+.legend{display:grid;gap:12px}
+.lg{padding:18px 20px;border-left:3px solid var(--c)}
+.lg h4{font-size:15px;margin-bottom:4px;display:flex;align-items:center}
+.lg p{font-size:14px;color:var(--mute)}
+
+/* faq */
+.narrow{max-width:840px}
+.faq{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 4px;font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";color:var(--mute);font-size:22px;line-height:1;flex:none}
+.faq[open] summary:after{content:"\2013";color:var(--sky)}
+.faq-a{padding:0 4px 22px;color:var(--mute);font-size:15px;max-width:720px}
+.faq-a a,.contact-points a{color:var(--sky);font-weight:700}
+.faq-a p+p{margin-top:10px}
+
+/* available today vs coming next */
+.avail{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.av{padding:28px;display:flex;flex-direction:column;align-items:flex-start}
+.av h3{font-size:20px;margin:14px 0 14px}
+.av ul{list-style:none;width:100%}
+.av li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid var(--line);font-size:14.5px}
+.av li:first-child{border-top:0}
+.av li span:last-child{color:var(--mute);font:500 12px 'JetBrains Mono',monospace;white-space:nowrap;padding-top:2px}
+
+/* contact */
+.contact-points{display:grid;gap:12px;margin-top:26px;font-size:15px;color:var(--mute)}
+.form select,.form textarea{width:100%;background:var(--ink);border:1px solid var(--line);color:var(--text);padding:12px 14px;border-radius:9px;font:500 14px Manrope,system-ui,sans-serif;margin-bottom:14px}
+.form select:focus,.form textarea:focus{outline:none;border-color:var(--blue)}
+.form textarea{min-height:130px;resize:vertical}
+
+/* footer */
+.site-foot{border-top:1px solid var(--line);padding:56px 0 28px;font-size:14px;color:var(--mute)}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px}
+.foot-grid h4{font-size:13px;color:var(--text);margin-bottom:14px}
+.foot-grid a{display:block;margin-bottom:10px}
+.foot-grid a:hover{color:var(--text)}
+.foot-grid .brand{margin-bottom:0}
+.foot-desc{margin-top:14px;max-width:300px;line-height:1.7}
+.foot-bottom{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:36px;padding-top:22px;font-size:13px}
+
+@media(max-width:1080px){.steps5{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:960px){.rep-grid,.avail{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.steps5,.foot-grid{grid-template-columns:1fr}.phero{padding:52px 0 20px}.av li{flex-direction:column;gap:2px}.shopify-section:has(> .phero) + .shopify-section > section{padding-top:36px}}

@@ -1,8 +1,8 @@
 <section id="pricing" class="alt">
   <div class="wrap">
     <div class="sec-h">
-      <h2>Pricing built around what you learn, not what you install.</h2>
-      <p>Start with the Store Audit today. Platform plans open to early-access operators first.</p>
+      <h2>{{ section.settings.heading | escape }}</h2>
+      <p>{{ section.settings.text | escape }}</p>
     </div>
 
     <div class="card audit-offer">
@@ -45,6 +45,10 @@
 {% schema %}
 {
   "name": "Cuadra · Pricing",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pricing built around what you learn, not what you install." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Start with the Store Audit today. Platform plans open to early-access operators first." }
+  ],
   "presets": [
     {
       "name": "Cuadra · Pricing"

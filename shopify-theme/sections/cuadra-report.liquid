@@ -1,0 +1,43 @@
+{%- comment -%}
+  Section contract.
+  What the Store Audit report contains, plus the rating legend.
+{%- endcomment -%}
+<section id="report" class="{% if section.settings.alt %}alt{% endif %}">
+  <div class="wrap">
+    <div class="sec-h">
+      <h2>{{ section.settings.heading | escape }}</h2>
+      <p>Built so you can act on page one. Every finding points at real data from your store.</p>
+    </div>
+    <div class="rep-grid">
+      <div class="card rep">
+        <h3>In your report</h3>
+        <ul class="ticks">
+          <li>Cuadra Fabric Health Score from 0 to 100, with how many areas we could measure</li>
+          <li>3 things you should fix today, with where to fix them in Shopify</li>
+          <li>A scorecard rating all 13 areas</li>
+          <li>For every issue: what's wrong, why it matters, and what to do next</li>
+          <li>Key numbers from your store: traffic, add-to-cart, orders, margin, and more</li>
+          <li>What we couldn't check, and what it would take to check it</li>
+          <li>A plan for this week and this month</li>
+        </ul>
+      </div>
+      <div class="legend">
+        <div class="card lg" style="--c:var(--red)"><h4><i class="dot d-r"></i>Critical</h4><p>Losing money or trust right now, or blocking sales.</p></div>
+        <div class="card lg" style="--c:var(--amber)"><h4><i class="dot d-a"></i>Needs attention</h4><p>A real leak or risk worth fixing this month.</p></div>
+        <div class="card lg" style="--c:var(--green)"><h4><i class="dot d-g"></i>Healthy</h4><p>No confirmed issue in this area.</p></div>
+        <div class="card lg" style="--c:var(--mute)"><h4><i class="dot d-m"></i>Not measured</h4><p>We couldn't check it, and we tell you why instead of guessing.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cuadra · Audit report",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What's in your Store Audit" },
+    { "type": "checkbox", "id": "alt", "label": "Alternate background", "default": true }
+  ],
+  "presets": [ { "name": "Cuadra · Audit report" } ]
+}
+{% endschema %}

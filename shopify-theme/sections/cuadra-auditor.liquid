@@ -2,8 +2,8 @@
   <div class="wrap aud-grid">
     <div>
       <div class="sec-h" style="margin-bottom:0">
-        <h2>Find out what's actually wrong with your store.</h2>
-        <p>We review your store across 13 areas. Every finding is rated, explained, and paired with a next step.</p>
+        <h2>{{ section.settings.heading | escape }}</h2>
+        <p>{{ section.settings.text | escape }}</p>
       </div>
       <div class="cats"><span>Conversion</span><span>Product pages</span><span>Pricing</span><span>SEO</span><span>Mobile</span><span>Store structure</span><span>Catalog quality</span><span>Checkout</span><span>Analytics</span><span>Inventory</span><span>Fulfillment</span><span>Advertising</span><span>Profitability</span></div>
 
@@ -61,6 +61,10 @@
 {% schema %}
 {
   "name": "Cuadra · Store Auditor",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find out what's actually wrong with your store." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "We review your store across 13 areas. Every finding is rated, explained, and paired with a next step." }
+  ],
   "presets": [
     {
       "name": "Cuadra · Store Auditor"

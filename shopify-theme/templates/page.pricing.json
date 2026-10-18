@@ -1,0 +1,76 @@
+{
+  "layout": "cuadra",
+  "sections": {
+    "hero": {
+      "type": "cuadra-page-hero",
+      "settings": {
+        "status": "none",
+        "eyebrow": "Pricing",
+        "heading": "Pay for what you learn.",
+        "text": "Start with a one-time $297 Store Audit. Platform plans open to early-access operators first and can't be purchased yet.",
+        "btn1_label": "Start my audit",
+        "btn1_link": "https://cuadra-audit-flow.base44.app"
+      }
+    },
+    "pricing": {
+      "type": "cuadra-pricing",
+      "settings": {
+        "heading": "Choose your starting point.",
+        "text": "The Store Audit is available today. The plans below are early-access pricing for the platform."
+      }
+    },
+    "faq": {
+      "type": "cuadra-faq",
+      "settings": {
+        "heading": "Pricing questions",
+        "alt": false
+      },
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "What can I buy today?",
+            "answer": "<p>The Store Audit: $297, one-time, delivered within 48 hours of payment.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "When will platform plans be available?",
+            "answer": "<p>Plans open to early-access operators first. There's no launch date to announce yet. <a href=\"/pages/demo\">Join early access</a> and we'll contact you.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Will I be charged for a platform plan?",
+            "answer": "<p>No. The only thing you can buy today is the Store Audit, through its own checkout.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Is there an annual discount?",
+            "answer": "<p>Yes. At launch, annual billing saves 20% on every plan.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ]
+    },
+    "final": {
+      "type": "cuadra-final",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "pricing",
+    "faq",
+    "final"
+  ]
+}

@@ -1,0 +1,54 @@
+{%- comment -%}
+  Section contract.
+  Page-level hero (h1) for Cuadra Fabric pages, with an optional feature-status label
+  (Available today / In development / Coming next) and up to two buttons.
+{%- endcomment -%}
+{%- liquid
+  case section.settings.status
+    when 'live'
+      assign status_label = 'Available today'
+    when 'dev'
+      assign status_label = 'In development'
+    when 'soon'
+      assign status_label = 'Coming next'
+    else
+      assign status_label = blank
+  endcase
+-%}
+<section class="phero">
+  <div class="wrap">
+    {%- if status_label != blank -%}<span class="st st-{{ section.settings.status }}">{{ status_label }}</span>{%- endif -%}
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    <h1>{{ section.settings.heading | escape }}</h1>
+    {%- if section.settings.text != blank -%}<p class="lede">{{ section.settings.text | escape }}</p>{%- endif -%}
+    {%- if section.settings.btn1_label != blank or section.settings.btn2_label != blank -%}
+      <div class="cta-row">
+        {%- if section.settings.btn1_label != blank -%}<a class="btn btn-p btn-lg" href="{{ section.settings.btn1_link | default: '/pages/store-auditor' }}">{{ section.settings.btn1_label | escape }}</a>{%- endif -%}
+        {%- if section.settings.btn2_label != blank -%}<a class="btn btn-g btn-lg" href="{{ section.settings.btn2_link | default: '/' }}">{{ section.settings.btn2_label | escape }}</a>{%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cuadra · Page hero",
+  "settings": [
+    { "type": "select", "id": "status", "label": "Feature status", "default": "none",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "live", "label": "Available today" },
+        { "value": "dev", "label": "In development" },
+        { "value": "soon", "label": "Coming next" }
+      ] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Know what your business actually makes." },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "btn1_label", "label": "Primary button label" },
+    { "type": "url", "id": "btn1_link", "label": "Primary button link" },
+    { "type": "text", "id": "btn2_label", "label": "Secondary button label" },
+    { "type": "url", "id": "btn2_link", "label": "Secondary button link" }
+  ],
+  "presets": [ { "name": "Cuadra · Page hero" } ]
+}
+{% endschema %}

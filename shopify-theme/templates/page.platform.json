@@ -1,0 +1,46 @@
+{
+  "layout": "cuadra",
+  "sections": {
+    "hero": {
+      "type": "cuadra-page-hero",
+      "settings": {
+        "status": "dev",
+        "eyebrow": "Platform",
+        "heading": "Build. Audit. Understand. Optimize.",
+        "text": "Cuadra Fabric is growing into one operating system for your store. The Store Audit is available today; the operating view, connections, and automation are in development.",
+        "btn1_label": "Start with the Store Audit",
+        "btn1_link": "/pages/store-auditor",
+        "btn2_label": "Join early access",
+        "btn2_link": "/pages/demo"
+      }
+    },
+    "how": {
+      "type": "cuadra-how",
+      "settings": {}
+    },
+    "status": {
+      "type": "cuadra-available",
+      "settings": {}
+    },
+    "platform": {
+      "type": "cuadra-platform",
+      "settings": {}
+    },
+    "connectors": {
+      "type": "cuadra-connectors",
+      "settings": {}
+    },
+    "final": {
+      "type": "cuadra-final",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "how",
+    "status",
+    "platform",
+    "connectors",
+    "final"
+  ]
+}
