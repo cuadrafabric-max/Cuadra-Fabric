@@ -1,7 +1,7 @@
 {%- comment -%}
   Section contract.
   Site-wide footer for the Cuadra Fabric SaaS layout. Legal links list only the store
-  policies that actually exist (shop.policies), so there are never dead legal links.
+  policies that actually exist (shop.policies), plus the US data-sharing opt-out page.
 {%- endcomment -%}
 <footer class="site-foot">
   <div class="wrap foot-grid">
@@ -21,14 +21,13 @@
       <a href="/pages/demo">Contact / Demo</a>
       <a href="mailto:cuadrafabric@gmail.com">cuadrafabric@gmail.com</a>
     </div>
-    {%- if shop.policies.size > 0 -%}
-      <div>
-        <h4>Legal</h4>
-        {%- for policy in shop.policies -%}
-          <a href="{{ policy.url }}">{{ policy.title | escape }}</a>
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
+    <div>
+      <h4>Legal</h4>
+      {%- for policy in shop.policies -%}
+        <a href="{{ policy.url }}">{{ policy.title | escape }}</a>
+      {%- endfor -%}
+      <a href="/pages/data-sharing-opt-out">Your Privacy Choices</a>
+    </div>
   </div>
   <div class="wrap foot-bottom">
     <span>&copy; {{ 'now' | date: '%Y' }} Cuadra Fabric. All rights reserved.</span>
