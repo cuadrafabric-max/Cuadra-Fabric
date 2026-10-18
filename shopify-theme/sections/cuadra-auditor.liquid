@@ -1,0 +1,70 @@
+<section id="auditor">
+  <div class="wrap aud-grid">
+    <div>
+      <div class="sec-h" style="margin-bottom:0">
+        <h2>Find out what's actually wrong with your store.</h2>
+        <p>We review your store across 13 areas. Every finding is rated, explained, and paired with a next step.</p>
+      </div>
+      <div class="cats"><span>Conversion</span><span>Product pages</span><span>Pricing</span><span>SEO</span><span>Mobile</span><span>Store structure</span><span>Catalog quality</span><span>Checkout</span><span>Analytics</span><span>Inventory</span><span>Fulfillment</span><span>Advertising</span><span>Profitability</span></div>
+
+      <div class="card offer">
+        <span class="st st-live">Available today</span>
+        <h3>48-Hour E-Commerce Revenue &amp; Automation Audit</h3>
+        <div class="price">$297<small> one-time</small></div>
+        <ul class="ticks">
+          <li>Cuadra Fabric Health Score across 13 areas</li>
+          <li>3 things you should fix today</li>
+          <li>What's wrong, why it matters, and what to do next for every finding</li>
+          <li>Report within 48 hours of payment</li>
+        </ul>
+        <a class="btn btn-p btn-lg" href="https://cuadra-audit-flow.base44.app">Start my audit</a>
+        <p class="fine">Secure checkout by Stripe. Read-only review &mdash; we never change your store.</p>
+      </div>
+
+      {%- form 'contact', id: 'audit-form', class: 'card form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="form-msg" role="status">Thanks. We received your store URL and will reply by email.</p>
+        {%- else -%}
+          <p class="form-h">Questions first? Send us your store URL.</p>
+          {%- if form.errors -%}<p class="form-err" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+          <input type="hidden" name="contact[Request type]" value="Store audit question">
+          <label for="url">Store URL</label>
+          <input id="url" name="contact[Store URL]" type="url" placeholder="https://yourstore.com" required>
+          <label for="em">Work email</label>
+          <input id="em" name="contact[email]" type="email" placeholder="you@yourstore.com" required>
+          <button class="btn btn-g btn-lg" type="submit">Send my store URL</button>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+    <div class="aud-list">
+      <p class="ex-label">EXAMPLE FINDINGS &middot; SAMPLE STORE</p>
+      <article class="card finding r">
+        <header><h4>Mobile checkout is slow</h4><span class="tag">CRITICAL</span></header>
+        <dl><dt>What's wrong</dt><dd>The payment step takes 6.2s to load on mobile.</dd>
+        <dt>Why it matters</dt><dd>Mobile carts are abandoned at the payment step at 41%, well above a healthy range.</dd>
+        <dt>What to do next</dt><dd>Defer third-party scripts on checkout and compress the order summary images.</dd></dl>
+      </article>
+      <article class="card finding a">
+        <header><h4>Missing product metadata</h4><span class="tag">NEEDS ATTENTION</span></header>
+        <dl><dt>What's wrong</dt><dd>9 products have no meta description or image alt text.</dd>
+        <dt>Why it matters</dt><dd>Search engines show weaker snippets, and those pages lose organic clicks.</dd>
+        <dt>What to do next</dt><dd>Write a meta description and alt text for each product, starting with your best sellers.</dd></dl>
+      </article>
+      <article class="card finding g">
+        <header><h4>Collection structure</h4><span class="tag">HEALTHY</span></header>
+        <dl><dt>What we found</dt><dd>Navigation depth, collection naming, and internal links are consistent.</dd></dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cuadra · Store Auditor",
+  "presets": [
+    {
+      "name": "Cuadra · Store Auditor"
+    }
+  ]
+}
+{% endschema %}

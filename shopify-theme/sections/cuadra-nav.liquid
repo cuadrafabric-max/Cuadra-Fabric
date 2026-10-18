@@ -1,0 +1,36 @@
+<nav aria-label="Primary">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Cuadra Fabric home">
+      <img src="{{ 'cuadra-logo.png' | asset_url }}" alt="">
+      <div><span class="wordmark">CUADRA</span><small>FABRIC</small></div>
+    </a>
+    <div class="links">
+      <a href="#top">Home</a><a href="#platform">Platform</a><a href="#auditor">Store Auditor</a><a href="#pricing">Pricing</a><a href="#how">How it works</a><a href="#demo">Contact / Demo</a>
+    </div>
+    <div class="nav-r">
+      <a class="btn btn-p" href="#auditor">Audit my store</a>
+      <details class="m-menu">
+        <summary>Menu</summary>
+        <div class="m-links">
+          <a href="#top" onclick="this.closest('details').open=false">Home</a>
+          <a href="#platform" onclick="this.closest('details').open=false">Platform</a>
+          <a href="#auditor" onclick="this.closest('details').open=false">Store Auditor</a>
+          <a href="#pricing" onclick="this.closest('details').open=false">Pricing</a>
+          <a href="#how" onclick="this.closest('details').open=false">How it works</a>
+          <a href="#demo" onclick="this.closest('details').open=false">Contact / Demo</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</nav>
+
+{% schema %}
+{
+  "name": "Cuadra · Nav",
+  "presets": [
+    {
+      "name": "Cuadra · Nav"
+    }
+  ]
+}
+{% endschema %}

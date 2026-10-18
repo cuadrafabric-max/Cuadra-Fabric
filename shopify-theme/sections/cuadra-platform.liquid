@@ -1,0 +1,54 @@
+<section id="platform" class="alt">
+  <div class="wrap">
+    <div class="sec-h">
+      <span class="st st-dev">In development</span>
+      <h2 style="margin-top:16px">One operating view of the whole business.</h2>
+      <p>Revenue, margin, ads, inventory, and fulfillment side by side, so you can see what's helping and what's leaking profit. This is the platform we're building; today, the same diagnosis comes through the Store Audit.</p>
+    </div>
+    <div class="card dash">
+      <div class="side">
+        <div class="brand"><img src="{{ 'cuadra-logo.png' | asset_url }}" alt="" style="width:26px;height:28px"><span class="wordmark" style="font-size:11px">CUADRA</span></div>
+        <a class="on" href="#platform">Dashboard</a><a href="#platform">Store audit</a><a href="#platform">Products</a><a href="#platform">Orders</a><a href="#platform">Advertising</a><a href="#platform">Inventory</a><a href="#platform">Alerts</a><a href="#platform">Integrations</a>
+      </div>
+      <div class="main">
+        <div class="kpis">
+          <div class="kpi"><span>Revenue</span><b>$248,632</b><i class="up">+12.4%</i></div>
+          <div class="kpi"><span>Orders</span><b>1,204</b><i class="up">+8.7%</i></div>
+          <div class="kpi"><span>AOV</span><b>$206</b><i class="up">+3.4%</i></div>
+          <div class="kpi"><span>Gross margin</span><b>48.7%</b><i class="dn">-1.1pp</i></div>
+          <div class="kpi"><span>ROAS</span><b>3.1x</b><i class="dn">-0.4</i></div>
+        </div>
+        <div class="dgrid">
+          <div class="box">
+            <h5>Where the margin goes</h5>
+            <div class="bar"><span>Product cost</span><div><i style="width:62%"></i></div><b>34%</b></div>
+            <div class="bar"><span>Ad spend</span><div><i style="width:48%"></i></div><b>21%</b></div>
+            <div class="bar"><span>Fulfillment</span><div><i style="width:30%"></i></div><b>9%</b></div>
+            <div class="bar"><span>Refunds</span><div><i style="width:16%;background:var(--red)"></i></div><b>4%</b></div>
+            <div class="bar"><span>Inventory risk</span><div><i style="width:22%;background:var(--amber)"></i></div><b>6 SKUs</b></div>
+          </div>
+          <div class="box today">
+            <h5>Cuadra Fabric health score: 72</h5>
+            <ul>
+              <li><i class="dot d-r" style="margin-top:6px"></i>Pause 2 ad sets below break-even ROAS</li>
+              <li><i class="dot d-r" style="margin-top:6px"></i>Restock Performance Tee (M) before Friday</li>
+              <li><i class="dot d-a" style="margin-top:6px"></i>Raise price on 14 low-margin products</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Illustrative mockup with sample data. Metrics shown reflect the intended product, not live customer results.</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cuadra · Platform",
+  "presets": [
+    {
+      "name": "Cuadra · Platform"
+    }
+  ]
+}
+{% endschema %}
